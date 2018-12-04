@@ -1,4 +1,5 @@
-import { withTime, addPrevState } from 'cyclejs-test-helpers';
+import { withTime, addPrevState } from './test-helpers';
+import { map } from 'rxjs/operators';
 import { assertLooksLike, Wildcard } from 'snabbdom-looks-like';
 import { mockDOMSource, VNode } from '@cycle/dom';
 
@@ -22,7 +23,7 @@ describe('app tests', () => {
             const history = Time.diagram('a-b--a--a--b-', {
                 a: '/counter',
                 b: '/speaker'
-            }).map(fakeLocationObj);
+            }).pipe(map(fakeLocationObj));
 
             const sinks: any = wrapMain(App)({ DOM, history } as any);
             const sinksWithState: any = wrapMain(
@@ -32,13 +33,13 @@ describe('app tests', () => {
                 })
             )({ DOM, history } as any);
 
-            const expected$ = Time.diagram('1-2--1--1--2-').map<VNode>(
-                (n: string) => (
+            const expected$ = Time.diagram('1-2--1--1--2-').pipe(
+                map((n: string) => (
                     <div>
                         <h2>{`My Awesome Cycle.js app - Page ${n}`}</h2>
                         <Wildcard />
                     </div>
-                )
+                ))
             );
 
             Time.assertEqual(sinks.DOM, expected$, assertLooksLike);
@@ -52,7 +53,7 @@ describe('app tests', () => {
             const DOM = mockDOMSource({});
             const history = Time.diagram('r--r--', {
                 r: '/'
-            }).map(fakeLocationObj);
+            }).pipe(map(fakeLocationObj));
 
             const sinks = wrapMain(App)({ DOM, history } as any);
 

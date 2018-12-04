@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "cycle-scripts-one-fits-all": "7.1.1",
     "@types/mocha": "^5.2.5",
-    "cyclejs-test-helpers": "^4.0.0",
-    "snabbdom-looks-like": "^1.0.4",
-    "snabbdom-pragma": "^2.7.0",
+    "cycle-scripts-one-fits-all": "7.1.1",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "snabbdom-looks-like": "^1.0.4",
+    "snabbdom-pragma": "^2.7.0"
   },
   "scripts": {
     "format": "prettier --write '{src,test}/**/*.{js,jsx,ts,tsx}'",
@@ -55,11 +54,12 @@
     "@cycle/dom": "^22.0.0",
     "@cycle/history": "^7.0.0",
     "@cycle/isolate": "^4.1.0",
-    "@cycle/run": "^5.1.0",
+    "@cycle/rxjs-run": "^10.1.0",
     "@cycle/state": "^1.0.0",
-    "@cycle/time": "^0.16.0",
+    "@cycle/time": "^0.18.0",
     "cyclejs-utils": "^4.0.2",
     "cyclic-router": "^5.1.7",
+    "rxjs": "^6.3.3",
     "switch-path": "^1.2.0",
     "xstream": "^11.7.0"
   },

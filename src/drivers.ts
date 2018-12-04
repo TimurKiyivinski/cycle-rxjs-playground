@@ -19,10 +19,6 @@ export function getDrivers(): any {
         .reduce((a, c) => ({ ...a, ...c }), {});
 }
 
-export const driverNames = Object.keys(driversFactories)
-    .filter(name => name !== 'history')
-    .concat(['state', 'router']);
-
 export function wrapMain(main: Component<any>): Component<any> {
     return withState(routerify(main as any, switchPath as any)) as any;
 }
