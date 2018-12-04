@@ -56,7 +56,7 @@
     "@cycle/isolate": "^4.1.0",
     "@cycle/rxjs-run": "^10.1.0",
     "@cycle/state": "^1.0.0",
-    "@cycle/time": "^0.16.0",
+    "@cycle/time": "^0.18.0",
     "cyclejs-utils": "^4.0.2",
     "cyclic-router": "^5.1.7",
     "rxjs": "^6.3.3",
