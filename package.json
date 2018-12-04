@@ -56,10 +56,12 @@
     "@cycle/history": "^7.0.0",
     "@cycle/isolate": "^4.1.0",
     "@cycle/run": "^5.1.0",
+    "@cycle/rxjs-run": "^10.1.0",
     "@cycle/state": "^1.0.0",
     "@cycle/time": "^0.16.0",
     "cyclejs-utils": "^4.0.2",
     "cyclic-router": "^5.1.7",
+    "rxjs": "^6.3.3",
     "switch-path": "^1.2.0",
     "xstream": "^11.7.0"
   },
