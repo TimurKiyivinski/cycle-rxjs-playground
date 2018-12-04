@@ -1,5 +1,6 @@
-import xs from 'xstream';
-import { withTime, addPrevState } from 'cyclejs-test-helpers';
+import { never as observableNever } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { withTime, addPrevState } from './test-helpers';
 import { assertLooksLike, Wildcard } from 'snabbdom-looks-like';
 import { mockDOMSource, VNode } from '@cycle/dom';
 
@@ -24,12 +25,14 @@ describe('app tests', () => {
             const diagram = '-abcdefg--u-vwx-y-z';
             const DOM = mockDOMSource({
                 '#text': {
-                    input: Time.diagram(diagram, timeValues).map(value => ({
-                        target: { value }
-                    }))
+                    input: Time.diagram(diagram, timeValues).pipe(
+                        map(value => ({
+                            target: { value }
+                        }))
+                    )
                 }
             });
-            const history = xs.never();
+            const history = observableNever();
 
             const sinks: any = wrapMain(Speaker)({ DOM, history } as any);
 
@@ -48,7 +51,7 @@ describe('app tests', () => {
 
             Time.assertEqual(
                 sinks.DOM,
-                expected$.map(expectedDOM),
+                expected$.pipe(map(expectedDOM)),
                 assertLooksLike
             );
         })
@@ -63,7 +66,7 @@ describe('app tests', () => {
                     click: Time.diagram(diagram)
                 }
             });
-            const history = xs.never();
+            const history = observableNever();
 
             const sinks: any = wrapMain(Speaker)({ DOM, history } as any);
 
@@ -92,7 +95,7 @@ describe('app tests', () => {
                     })
                 }
             });
-            const history = xs.never();
+            const history = observableNever();
 
             const sinks: any = wrapMain(Speaker)({ DOM, history } as any);
             const expected$ = Time.diagram('--x-----a--a-', {

@@ -1,5 +1,10 @@
-import xs from 'xstream';
-import { withTime, addPrevState } from 'cyclejs-test-helpers';
+import {
+    of as observableOf,
+    merge as observableMerge,
+    never as observableNever
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { withTime, addPrevState } from './test-helpers';
 import { assertLooksLike, Wildcard } from 'snabbdom-looks-like';
 import { mockDOMSource, VNode, div, span } from '@cycle/dom';
 
@@ -18,7 +23,7 @@ describe('counter tests', () => {
                     click: Time.diagram('--x----x---------xx----x-')
                 }
             });
-            const history = xs.never();
+            const history = observableNever();
 
             const sinks: any = wrapMain(Counter)({ DOM, history } as any);
             const _sinks: any = wrapMain(addPrevState(Counter, { count: 5 }))({
@@ -36,12 +41,12 @@ describe('counter tests', () => {
 
             Time.assertEqual(
                 sinks.DOM,
-                expected$.map(expectedDOM),
+                expected$.pipe(map(expectedDOM)),
                 assertLooksLike
             );
             Time.assertEqual(
                 _sinks.DOM,
-                _expected$.map(expectedDOM),
+                _expected$.pipe(map(expectedDOM)),
                 assertLooksLike
             );
         })
@@ -56,7 +61,10 @@ describe('counter tests', () => {
                     click: Time.diagram(diagram)
                 }
             });
-            const history = xs.merge(xs.of('/counter'), xs.never());
+            const history = observableMerge(
+                observableOf('/counter'),
+                observableNever()
+            );
 
             const sinks: any = wrapMain(Counter)({ DOM, history } as any);
 
